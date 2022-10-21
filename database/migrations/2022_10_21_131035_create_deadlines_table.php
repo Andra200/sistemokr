@@ -18,8 +18,8 @@ class CreateDeadlinesTable extends Migration
             $table->foreignId('objective_id')->constrained('objectives')->onDelete(null)->nullable();
             $table->foreignId('keyresult_id')->constrained('keyresults')->onDelete(null)->nullable();
             $table->foreignId('task_id')->constrained('tasks')->onDelete(null)->nullable();
-            $table->date('date');
-            $table->date('until');
+            $table->dateTime('date');
+            $table->dateTime('until');
             $table->timestamps();
         });
     }
