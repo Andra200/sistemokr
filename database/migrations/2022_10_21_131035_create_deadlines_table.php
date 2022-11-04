@@ -14,12 +14,12 @@ class CreateDeadlinesTable extends Migration
     public function up()
     {
         Schema::create('deadlines', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('objective_id')->constrained('objectives')->onDelete(null)->nullable();
-            $table->foreignId('keyresult_id')->constrained('keyresults')->onDelete(null)->nullable();
-            $table->foreignId('task_id')->constrained('tasks')->onDelete(null)->nullable();
-            $table->dateTime('date');
-            $table->dateTime('until');
+            $table->id()->default(null);
+            $table->foreignId('objective_id')->constrained('objectives')->onDelete(null)->nullable()->default(null);
+            $table->foreignId('keyresult_id')->constrained('keyresults')->onDelete(null)->nullable()->default(null);
+            $table->foreignId('task_id')->constrained('tasks')->onDelete(null)->nullable()->default(null);
+            $table->dateTime('date')->default(null);
+            $table->dateTime('until')->default(null);
             $table->timestamps();
         });
     }

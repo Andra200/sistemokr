@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Team Index</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<script type="text/javascript" src="js/jquery.js"></script>
 </head>
 <body>
@@ -11,7 +11,7 @@
 			<div class="panel-heading">
 			<h2>Team Index</h2>
 			</div>
-			
+
 			<div class="panel-body">
 	@section('option')
 	<div class="col">
@@ -37,15 +37,15 @@
 
 
 
-  
- 
+
+
 	<table class="table table-bordered">
 		<tr>
 			<th>Nama</th>
 			<th>progress</th>
 			<th>Action</th>
 			<th>Dosen</th>
-		
+
 		</tr>
 		@foreach($team as $p)
 		<tr>
@@ -56,9 +56,9 @@
                 <div class="progress-bar" role="progressbar" style="width: 25%"  aria-valuemin="0" aria-valuemax="100">25%</div>
 </div>
             </td>
-			
+
 			<td>
-				
+
                 <a class="btn btn-primary " href="/team/details">
 				<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-eye-fill" viewBox="0 -3 17 17">
 				<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
@@ -72,18 +72,18 @@
 	</table>
 	<a href="/team/addteam" class="btn btn-primary btn-sm">Tambah</a>
 
-	
+
 </form>
 </form>
 </div>
 </div>
 </div>
 
-</div>		
-				
+</div>
+
 				</div>
 				<br/>
-		
+
 </script>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

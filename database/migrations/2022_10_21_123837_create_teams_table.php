@@ -14,9 +14,9 @@ class CreateTeamsTable extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete(null)->nullable();
-            $table->string('name')->nullable();
+            $table->id()->default(null);
+            $table->foreignId('user_id')->constrained('users')->onDelete(null)->nullable()->default(null);
+            $table->string('name')->nullable()->default(null);
             $table->timestamps();
 
         });

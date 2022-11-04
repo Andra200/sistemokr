@@ -14,12 +14,12 @@ class CreateObjectivesTable extends Migration
     public function up()
     {
         Schema::create('objectives', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('team_id')->constrained('teams')->onDelete(null)->nullable();
-            $table->string('objective_name');
-            $table->string('objective_details');
-            $table->string('objective_finish');
-            $table->string('progress');
+            $table->id()->default(null);
+            $table->foreignId('team_id')->constrained('teams')->onDelete(null)->nullable()->default(null);
+            $table->string('objective_name')->default(null);
+            $table->string('objective_details')->default(null);
+            $table->string('objective_finish')->default(null);
+            $table->string('progress')->default(null);
             $table->timestamps();
         });
     }

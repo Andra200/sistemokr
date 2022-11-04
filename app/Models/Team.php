@@ -18,4 +18,7 @@ class Team extends Model
     public function user(){
         return $this->belongsTo( User::class,'user_id','id' );
     }
+    public function  objectives(){
+        return $this->hasMany( Objective::class,'team_id','id' );
+    }
 }
