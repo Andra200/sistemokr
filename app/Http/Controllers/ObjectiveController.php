@@ -7,6 +7,8 @@ use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 
 class ObjectiveController extends Controller
@@ -18,6 +20,8 @@ class ObjectiveController extends Controller
      */
     public function index()
     {
+        $objectives = Objective::latest()->get();
+        return view('objective.index', compact('objectives'));
        // return view('objective.index');
     }
 
@@ -47,9 +51,11 @@ class ObjectiveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {//dd($request->all());
         //$objective = Objective::create([]);
-        return view('objective.create');
+        $teams= Team::get();
+
+        return view('objective.create', compact('teams'));
     }
 
     /**
@@ -59,17 +65,47 @@ class ObjectiveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //insert data ke table objective
-        DB::table('objectives')->insert([
-            'team_id' => $request->id,
-            'objective_name' =>$request->objective,
-            'objective_details' =>$request->objectivedetails,
-            'objective_finish' =>$request->finish,
-            'progress' =>$request->progress
+    {//dd($request->all());
+       /**  $this->validate($request, [
+            'id' => 'required|string|max:155'
+        ]);
+*/      //$teams = Team::table('name')->get();
+
+        $objectives = Objective::create([
+            'team_id' => $request->team_id,
+            'objective_name' => $request->objective_name,
+            'objective_details' => $request->objective_details,
+            'objective_finish' => $request->objective_finish,
+            'progress' => $request->progress,
+
+           // 'slug' => Str::slug($request->id)
         ]);
 
-        return redirect('/objective');
+        if ($objectives) {
+            return redirect()
+                ->route('objective.index')
+                ->with([
+                    'success' => 'New post has been created successfully'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occurred, please try again'
+                ]);
+        }
+        //insert data ke table objective
+       /**  DB::table('objectives')->insert([
+          *  'team_id' => $request->id,
+           * 'objective_name' =>$request->objective,
+            *'objective_details' =>$request->objectivedetails,
+            *'objective_finish' =>$request->finish,
+            *'progress' =>$request->progress
+        *]);
+*
+ *       return redirect('/objective');
+ */
     }
 
     /**
@@ -92,9 +128,9 @@ class ObjectiveController extends Controller
     public function edit($id)
     {
         //mengambil data objective berdasarkan id yang dipilih
-        $objectives = DB::table('objectives')->where('id',$id)->first();
-
-        return view('objective.edit',['objectives'=>$objectives]);
+        $objectives = Objective::findOrFail($id);
+        $teams= Team::get();
+        return view('objective.edit', compact('objectives','teams'));
     }
 
     /**
@@ -105,16 +141,50 @@ class ObjectiveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {$this->validate($request, [
+        'team_id' => $request->team_id,
+        'objective_name' => $request->objective_name,
+        'objective_details' => $request->objective_details,
+        'objective_finish' => $request->objective_finish,
+        'progress' => $request->progress
+    ]);
+
+    $objectives = Objective::findOrFail($id);
+
+    $objectives->update([
+        'team_id' => $request->team_id,
+        'objective_name' => $request->objective_name,
+        'objective_details' => $request->objective_details,
+        'objective_finish' => $request->objective_finish,
+        'progress' => $request->progress
+    ]);
+
+    if ($objectives) {
+        return redirect()
+            ->route('objective.index')
+            ->with([
+                'success' => 'Post has been updated successfully'
+            ]);
+    } else {
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with([
+                'error' => 'Some problem has occured, please try again'
+            ]);
+    }
         //update objective
-        DB::table('objectives')->where('id',Auth::user()->id)->update([
-            'objective_name'=>$request->objective,
-            'objective_details'=>$request->objetivedetails,
-            'objective_finish'=>$request->finish,
+        //DB::table('objectives')->where('id',Auth::user()->id)->update([
+           /**  ($request->all());
+            $objectives->update([
+            'objective_name'=>$request->objective_name,
+            'objective_details'=>$request->objective_details,
+            'objective_finish'=>$request->objective_finish,
             'progress'=>$request->progress
         ]);
 
-        return redirect('/objective');
+        return redirect('objective.index');
+        */
     }
 
     /**
@@ -125,6 +195,21 @@ class ObjectiveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $objectives = Objective::findOrFail($id);
+        $objectives->delete();
+
+        if ($objectives) {
+            return redirect()
+                ->route('objective.index')
+                ->with([
+                    'success' => 'Post has been deleted successfully'
+                ]);
+        } else {
+            return redirect()
+                ->route('objective.index')
+                ->with([
+                    'error' => 'Some problem has occurred, please try again'
+                ]);
+        }
     }
 }

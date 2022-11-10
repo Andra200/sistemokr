@@ -1,59 +1,87 @@
 <!DOCTYPE html>
-<table class="table table-bordered">
-    <head>
-        <title>Objective</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script type="text/javascript" src="js/jquery.js"></script>
-    </head>
-    <body>
-        <div class="container">
-        <div class="panel panel-default">
-			<div class="panel-heading">
-			<h2>Objective</h2>
-			</div>
-        <table class="table table-hover">
+<html lang="en">
 
-            <tr>
-                <th>User</th>
-                <th>Team</th>
-                <th>Objective</th>
-                <th>Details</th>
-                <th>Finish</th>
-                <th>Progress</th>
-                <th>Opsi</th>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Objective</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 
-            </tr>
-            <tr>
+<body>
 
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
 
+                <!-- Notifikasi menggunakan flash session data -->
+                @if (session('succes'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
 
-            @foreach ($objectives as $key =>$value)
+                @if (session('error'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+                @endif
 
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                        <a href="{{ route('objective.create') }}" class="btn btn-md btn-success mb-3 float-right">new objective</a>
 
-                <td><p class="text-primary">{{ $value->team->user->name }} </p></td>
-                <td><p class="text-primary">{{ $value->team->name }} </p></td>
-                <td><p class="text-primary">{{ $value->objective_name }}</p></td>
-                <td><p class="text-primary">{{ $value->objective_details }}</p></td>
-                <td><p class="text-primary">{{ $value->objective_finish }}</p></td>
-                <td><p class="text-primary">{{ $value->progress }}</p></td>
-                <td>
-                    <a href="{{route('ObjectiveEdit', ['id' => $value->id])}}">Edit</a>
-                    <a href="/objective/hapus{{ $value->id }}">Hapus</a>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">User</th>
+                                    <th scope="col">Team</th>
+                                    <th scope="col">Objective</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">Finish</th>
+                                    <th scope="col">Progress</th>
+                                    <th scope="col">Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($objectives as $key=>$value)
 
-                </td>
-            </tr>
+                                <tr>
+                                    <td>{{ $value->team->user->name }}</td>
+                                    <td>{{ $value->team->name }}</td>
+                                    <td>{{ $value->objective_name }}</td>
+                                    <td>{{ $value->objective_details }}</td>
+                                    <td>{{ $value->objective_finish }}</td>
+                                    <td>{{ $value->progress }}</td>
+                                    <td class="text-center">
+                                        <form onsubmit="return confirm('Apakah Anda yakin?');"
+                                        action="{{ route('objective.destroy', $value->id) }}" method="POST">
+                                        <a href=" {{ route('objective.edit', $value->id) }}"
+                                            class="btn btn-sm btn-info shadow">Edit<a/>
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="text-center text-mute" colspan="4">Data objective tidak tersedia</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        @endforeach
-</div>
-</table>
-<a href="/objective/create">Tambah Objective</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    </body>
-
-
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 
 </html>

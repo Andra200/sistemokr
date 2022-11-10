@@ -1,27 +1,109 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
-	<title>Tutorial Membuat CRUD Pada Laravel - www.malasngoding.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widht=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title> Create Objective</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!--include summernote css -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
+
 <body>
 
-	<h2><a href="https://www.malasngoding.com">www.malasngoding.com</a></h2>
-	<h3>Data Pegawai</h3>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-12">
 
-	<a href="/objective"> Kembali</a>
+                <!--notif pake flash session data-->
+                @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
 
-	<br/>
-	<br/>
+                @if (session('error'))
+                <div class="alert alert-error">
+                    {{ session('error') }}
+                </div>
+                @endif
 
-	<form action="/objective/store" method="post">
-		{{ csrf_field() }}
-		id <input type="text" name="id" required="required"> <br/>
-		Objective <input type="text" name="objective" required="required"> <br/>
-		Objective Details <input type="text" name="objectivedetails" required="required"> <br/>
-		finish <input type="date" name="finish" required="required"> <br/>
-        progress <input type="number" name="progress" required="required"> <br/>
+                <div class="card border-0 shadow rounded">
+                    <div class="card-body">
 
-		<input type="submit" value="Simpan Data">
-	</form>
-</body>
-</html>
+                        <form action="{{ route('objective.store') }}" method="POST">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="team_id">id</label>
+                                <input type="text" class="form-control @error('team_id') is-invalid @enderror"
+                                    name="team_id" value="{{ old('team_id') }}" required>
+
+
+                            <div class="form-group">
+                                 <label for="name">Team Name</label>
+                                   <select name="team_id" class="form-control" required>
+                                    @foreach ($teams as $team)
+
+                                    <option value="{{ $team->id  }}" >{{ $team->name }}</option>
+                                    @endforeach
+
+                                  </select>
+                             </div>
+
+                                <!-- error massage untuk title -->
+                                @error('id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="objective_name">objective</label>
+                                <input name="objective_name" id="objective_name" type="text" class="form-control" id="objective_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="objective_details">objective details</label>
+                                <input name="objective_details" type="text" class="form-control" id="objectiveDetails" placeholder="objectiveDetails">
+                            </div>
+                            <div class="form-group">
+                                <label for="objective_finish">finish</label>
+                                <input name="objective_finish" type="date" class="form-control" id="finish" placeholder="finish">
+                            </div>
+                            <div class="form-group">
+                                <label for="progress">progress</label>
+                                <input name="progress" type="text" class="form-control" id="progress" placeholder="progress">
+                            </div>
+
+
+
+                            <button type="submit" class="btn btn-md btn-primary">Save</button>
+                            <a href="{{ route('objective.index') }}" class="btn btn-md btn-secondary">back</a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- include summernote js -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#content').summernote({
+                height: 250, //set editable area's height
+            });
+        })
+

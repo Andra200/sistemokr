@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ObjectiveController;
 
 
 
@@ -21,12 +23,16 @@ Route::post('/#','TeamController@index');
 
 //route objective
 Route::post('/createObjective','ObjectiveController@storeObjective');
-Route::get('/objective','ObjectiveController@getAllObjective');
-Route::get('/objective/create','ObjectiveController@create');
-Route::post('/objective/store','ObjectiveController@store');
-Route::get('/objective/edit/{id}','ObjectiveController@edit')->name('ObjectiveEdit');
-Route::put('/objective/update','ObjectiveController@update')->name('ObjectiveUpdate');
+//Route::get('/objective','ObjectiveController@getAllObjective');
+Route::get('/objective',[ObjectiveController::class, 'index'])->name('objective.index');
+Route::get('/objective/destroy',[ObjectiveController::class, 'destroy'])->name('objective.destroy');
 
+Route::get('/objective/create',[ObjectiveController::class, 'create'])->name('objective.create');
+Route::post('/objective/store',[ObjectiveController::class, 'store'])->name('objective.store');
+Route::get('/objective/edit/{id}','ObjectiveController@edit')->name('objective.edit');
+Route::put('/objective/update',[ObjectiveController::class, 'update'])->name('objective.update');
+
+//Route::resource('objective', ObjectiveController::class);
 
 Auth::routes();
 
