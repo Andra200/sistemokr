@@ -30,21 +30,21 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action={{route ("objective.update",['id'=>$objectives->id])}} method="POST">
+                        <form action={{route ("keyresult.update",['id'=>$keyresults->id])}} method="POST">
                            @method('put')
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label for="team_id"></label>
-                                <input type="hidden" class="form-control @error('team_id') is-invalid @enderror"
-                                    name="team_id" value="{{ $objectives->team_id }}" required>
+                                <label for="objective_id"></label>
+                                <input type="hidden" class="form-control @error('objective_id') is-invalid @enderror"
+                                    name="objective_id" value="{{ $keyresults->objective_id }}" required>
 
                             <div class="form-group">
-                                 <label for="name">Team Name</label>
-                                   <select name="team_id" class="form-control" required>
-                                    @foreach ($teams as $team)
+                                 <label for="objective_name">objective</label>
+                                   <select name="objective_id" class="form-control" required>
+                                    @foreach ($objective as $team)
 
-                                    <option value="{{ $team->id  }}" >{{ $team->name }}</option>
+                                    <option value="{{ $team->id  }}" >{{ $team->objective_name }}</option>
                                     @endforeach
 
                                   </select>
@@ -61,20 +61,20 @@
 
 
                             <div class="form-group">
-                                <label for="objective_name">objective</label>
-                                <input name="objective_name" id="objective_name" type="text" class="form-control" id="objective_name" value="{{ $objectives->objective_name }}" required>
+                                <label for="keyresult_name">objective</label>
+                                <input name="keyresult_name" id=keyresulte_name" type="text" class="form-control" id="keyresult_name" value="{{ $keyresults->keyresult_name }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="objective_details">objective details</label>
-                                <input name="objective_details" type="text" class="form-control" id="objectiveDetails" placeholder="objectiveDetails" value="{{ $objectives->objective_details }}">
+                                <label for="keyresult_details">keyresult details</label>
+                                <input name="keyresult_details" type="text" class="form-control" id="keyresultDetails" placeholder="keyresult_details" value="{{ $keyresults->keyresult_details }}">
                             </div>
                             <div class="form-group">
-                                <label for="objective_finish">finish</label>
-                                <input name="objective_finish" type="date" class="form-control" id="finish" placeholder="finish" value="{{ $objectives->objective_finish }}">
+                                <label for="keyresult_finish">finish</label>
+                                <input name="keyresult_finish" type="date" class="form-control" id="finish" placeholder="finish" value="{{ $keyresults->keyresult_finish }}">
                             </div>
                             <div class="form-group">
                                 <label for="progress">progress</label>
-                                <input name="progress" type="number" class="form-control" id="progress" placeholder="progress" value="{{ $objectives->progress }}">
+                                <input name="progress" type="number" class="form-control" id="progress" placeholder="progress" value="{{ $keyresults->progress }}">
                             </div>
 
                                 <!-- error message untuk content -->
@@ -86,7 +86,7 @@
                             </div>
 
                             <button type="submit" class="btn btn-md btn-primary">Update</button>
-                            <a href="{{ route('objective.index') }}" class="btn btn-md btn-secondary">back</a>
+                            <a href="{{ route('keyresult.index') }}" class="btn btn-md btn-secondary">back</a>
                         </form>
                     </div>
                 </div>

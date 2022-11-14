@@ -66,11 +66,6 @@ class ObjectiveController extends Controller
      */
     public function store(Request $request)
     {//dd($request->all());
-       /**  $this->validate($request, [
-            'id' => 'required|string|max:155'
-        ]);
-*/      //$teams = Team::table('name')->get();
-
         $objectives = Objective::create([
             'team_id' => $request->team_id,
             'objective_name' => $request->objective_name,
@@ -78,7 +73,6 @@ class ObjectiveController extends Controller
             'objective_finish' => $request->objective_finish,
             'progress' => $request->progress,
 
-           // 'slug' => Str::slug($request->id)
         ]);
 
         if ($objectives) {
@@ -141,13 +135,14 @@ class ObjectiveController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {$this->validate($request, [
-        'team_id' => $request->team_id,
-        'objective_name' => $request->objective_name,
-        'objective_details' => $request->objective_details,
-        'objective_finish' => $request->objective_finish,
-        'progress' => $request->progress
-    ]);
+    {
+    //     $this->validate($request, [
+    //     'team_id' => $request->team_id,
+    //     'objective_name' => $request->objective_name,
+    //     'objective_details' => $request->objective_details,
+    //     'objective_finish' => $request->objective_finish,
+    //     'progress'  => 'required|string'
+    // ]);
 
     $objectives = Objective::findOrFail($id);
 
@@ -198,18 +193,8 @@ class ObjectiveController extends Controller
         $objectives = Objective::findOrFail($id);
         $objectives->delete();
 
-        if ($objectives) {
-            return redirect()
-                ->route('objective.index')
-                ->with([
-                    'success' => 'Post has been deleted successfully'
-                ]);
-        } else {
-            return redirect()
-                ->route('objective.index')
-                ->with([
-                    'error' => 'Some problem has occurred, please try again'
-                ]);
-        }
+
+            return redirect()->back();
+
     }
 }

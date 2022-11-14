@@ -13,9 +13,9 @@ class Keyresult extends Model
     protected $fillable=
     [
         'objective_id',
-        'objective_name',
-        'objective_details',
-        'objective_finish',
+        'keyresult_name',
+        'keyresult_details',
+        'keyresult_finish',
         'progress'
     ];
 

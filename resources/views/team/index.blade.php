@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Objective</title>
+    <title>Team Index</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
@@ -31,38 +31,33 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('objective.create') }}" class="btn btn-md btn-success mb-3 float-right">new objective</a>
+                        <a href="{{ route('team.create') }}" class="btn btn-md btn-success mb-3 float-right">new team</a>
 
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Team</th>
-                                    <th scope="col">Objective</th>
-                                    <th scope="col">Details</th>
-                                    <th scope="col">Finish</th>
+                                    <th scope="col">Team Name</th>
                                     <th scope="col">Progress</th>
-                                    <th scope="col">Opsi</th>
+                                    <th scope="col">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($objectives as $key=>$value)
+                                @forelse ($teams as $key=>$group)
 
                                 <tr>
-                                    <td>{{ $value->team->user->name }}</td>
-                                    <td>{{ $value->team->name }}</td>
-                                    <td>{{ $value->objective_name }}</td>
-                                    <td>{{ $value->objective_details }}</td>
-                                    <td>{{ $value->objective_finish }}</td>
-                                    <td>{{ $value->progress }}</td>
+                                    <td>{{ $group->name }}</td>
+                                    <td></td>
+
+
                                     <td class="text-center">
-                                        <a href=" {{ route('objective.edit', $value->id) }}"
+                                        <a href=""
                                             class="btn btn-sm btn-info shadow">Edit<a/>
                                         <form onsubmit="return confirm('Apakah Anda yakin?');"
-                                        action="{{ route('objective.destroy', ['id'=> $value->id]) }}" method="POST">
+                                        action=">
 
                                             @csrf
-                                         
+
                                             <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                         </form>
                                     </td>

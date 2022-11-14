@@ -31,38 +31,38 @@
 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <a href="{{ route('objective.create') }}" class="btn btn-md btn-success mb-3 float-right">new objective</a>
+                        <a href="{{ route('keyresult.create') }}" class="btn btn-md btn-success mb-3 float-right">new keyresult</a>
 
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">User</th>
-                                    <th scope="col">Team</th>
-                                    <th scope="col">Objective</th>
-                                    <th scope="col">Details</th>
-                                    <th scope="col">Finish</th>
-                                    <th scope="col">Progress</th>
-                                    <th scope="col">Opsi</th>
+                                    <th scope="col">Keyresult</th>
+                                    <th scope="col">Keyresult Details</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">Finish Date</th>
+                                    <th scope="col">Porgress</th>
+
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($objectives as $key=>$value)
+                                @forelse ($keyresults as $key=>$value)
 
                                 <tr>
-                                    <td>{{ $value->team->user->name }}</td>
-                                    <td>{{ $value->team->name }}</td>
-                                    <td>{{ $value->objective_name }}</td>
-                                    <td>{{ $value->objective_details }}</td>
-                                    <td>{{ $value->objective_finish }}</td>
+                                    <td>{{ $value->keyresult_name }}</td>
+                                    <td>{{ $value->keyresult_details }}</td>
+                                    <td></td>
+                                    <td>{{ $value->keyresult_finish }}</td>
                                     <td>{{ $value->progress }}</td>
+
                                     <td class="text-center">
-                                        <a href=" {{ route('objective.edit', $value->id) }}"
+                                        <a href="{{ route('keyresult.edit', $value->id) }}"
                                             class="btn btn-sm btn-info shadow">Edit<a/>
                                         <form onsubmit="return confirm('Apakah Anda yakin?');"
-                                        action="{{ route('objective.destroy', ['id'=> $value->id]) }}" method="POST">
+                                        action="{{ route('keyresult.destroy', ['id'=> $value->id]) }}" method="POST">
 
                                             @csrf
-                                         
+
                                             <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
                                         </form>
                                     </td>
