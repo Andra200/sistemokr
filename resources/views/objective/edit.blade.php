@@ -66,7 +66,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="objective_details">objective details</label>
-                                <input name="objective_details" type="text" class="form-control" id="objectiveDetails" placeholder="objectiveDetails" value="{{ $objectives->objective_details }}">
+                                <textarea name="objective_details" type="text" class="form-control" id="objectiveDetails" placeholder="objectiveDetails" value="{{ $objectives->objective_details }}"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="objective_finish">finish</label>

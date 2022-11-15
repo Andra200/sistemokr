@@ -31,7 +31,7 @@ Route::post('/objective/destroy/{id}',[ObjectiveController::class, 'destroy'])->
 
 Route::get('/objective/create',[ObjectiveController::class, 'create'])->name('objective.create');
 Route::post('/objective/store',[ObjectiveController::class, 'store'])->name('objective.store');
-Route::get('/objective/edit/{id}','ObjectiveController@edit')->name('objective.edit');
+Route::get('/objective/edit/{id}',[ObjectiveController::class, 'edit'])->name('objective.edit');
 Route::put('/objective/update/{id}',[ObjectiveController::class, 'update'])->name('objective.update');
 
 //Route::resource('objective', ObjectiveController::class);
@@ -48,7 +48,7 @@ Route::get('/team/create',[TeamController::class, 'create'])->name('team.create'
 Route::get('/keyresult',[KeyresultController::class, 'index'])->name('keyresult.index');
 Route::post('/keyresult/store',[KeyresultController::class, 'store'])->name('keyresult.store');
 Route::get('/keyresult/create',[KeyresultController::class, 'create'])->name('keyresult.create');
-Route::get('/keyresult/edit/{id}','KeyresultController@edit')->name('keyresult.edit');
+Route::get('/keyresult/edit/{id}',[KeyresultController::class, 'edit'])->name('keyresult.edit');
 Route::put('/keyresult/update/{id}',[KeyresultController::class, 'update'])->name('keyresult.update');
 Route::post('/keyresult/destroy/{id}',[KeyresultController::class, 'destroy'])->name('keyresult.destroy');
 
